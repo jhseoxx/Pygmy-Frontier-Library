@@ -1,0 +1,47 @@
+#READ BELOW BFORE C+P
+Hello! Thanks for taking you time to read this. Before you go on, I will also provide the sizing and positioning for the elements.
+*Make sure your elements are rectangular shaped*
+*Make sure all elements are in Slice scale mode and have UiAspectRatioContraint*
+MENU BUTTON SIZE:{0.162, 0},{0.069, 0}
+MENU BUTTON POSITION: {-0, 0},{0, 0}
+----------
+ELEMENT BUTTON SIZE: {0.141, 0},{0.057, 0}
+ELEMENT POSITION: {-0.16, 0},{0.068*, 0}
+* = For Y axis of Postioning elements, increment each value if you are going to add more elements than just one
+
+--[[documentation
+	date written: 5/9/19 2:32pm
+	date finished: 5/9/19 3:01pm
+	title: menuPageMaster
+--]]
+--Variables
+local ui = script.Parent.Parent
+local menuButton = script.Parent
+local element1 = ui.inventory
+local element2 = ui.bits
+local player = game.Players.LocalPlayer
+local uiBlur = game.Lighting.uiBlur
+local default = game.Lighting.defaultBlur
+
+function expandUI()
+	--Open
+	if element1.Position == UDim2.new(-0.16, 0,0.068, 0) then
+	uiBlur.Enabled = true
+	default.Enabled = false
+	player.Character.Humanoid.WalkSpeed = 0
+	player.Character.Humanoid.JumpPower = 0
+	element2:TweenPosition(UDim2.new(0.004, 0,0.127, 0),"Out","Bounce", 0.5)
+	element1:TweenPosition(UDim2.new(0.004, 0,0.068, 0),"Out","Bounce", 0.5)
+	end
+	--Close
+	if element1.Position == UDim2.new(0.004, 0,0.068, 0) then
+	uiBlur.Enabled = false
+	default.Enabled = true
+		player.Character.Humanoid.WalkSpeed = 10
+		player.Character.Humanoid.JumpPower = 30
+		element2:TweenPosition(UDim2.new(-0.16, 0,0.127, 0),"In","Quad", 0.5)
+		element1:TweenPosition(UDim2.new(-0.16, 0,0.068, 0),"In","Quad", 0.5)
+		else print("ui closed") 
+	end
+end
+menuButton.MouseButton1Click:Connect(expandUI)
